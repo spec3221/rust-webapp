@@ -12,7 +12,7 @@
         <h1>RUST ASSISTANT</h1>
     </div>
 
-    <!-- Вкладка 1 -->
+    <!-- Вкладка 1: Главная -->
     <div id="tab-main" class="container tab-content active">
         <div class="card status-card safe">
             <h2>🚨 Статус базы</h2>
@@ -20,28 +20,31 @@
         </div>
         <div class="card">
             <h2>🗺️ Что на карте?</h2>
-            <div class="event-item"><span>🚢 Корабль</span><span class="badge active">В пути</span></div>
+            <div class="event-item"><span>🚢 Карго (Cargo)</span><span class="badge active">В пути</span></div>
+            <div class="event-item"><span>🛢️ Большая нефтевышка</span><span class="badge inactive">Пусто</span></div>
+            <div class="event-item"><span>🛢️ Малая нефтевышка</span><span class="badge inactive">Пусто</span></div>
+            <div class="event-item"><span>🌊 Глубокое море (Deep Sea)</span><span class="badge inactive">Пусто</span></div>
         </div>
     </div>
 
-    <!-- Вкладка 2 -->
+    <!-- Вкладка 2: Перехват -->
     <div id="tab-intercept" class="container tab-content">
         <div class="card">
             <h2>📡 Авто-Перехват</h2>
-            <p class="guide-text">Нажми кнопку ниже, чтобы открыть сервис перехвата. Авторизуйся через Steam, зайди в Rust и нажми "Pair" на Умной сигнализации.</p>
-            <button class="purple-btn" onclick="Telegram.WebApp.openLink('https://discord.gg/rustplus')">ПЕРЕЙТИ К ПЕРЕХВАТУ</button>
+            <p class="guide-text">Нажми кнопку ниже, чтобы открыть официальный Discord перехватчика. Авторизуйся через Steam, зайди в игру и нажми "Pair" на Умной сигнализации.</p>
+            <button class="purple-btn" onclick="Telegram.WebApp.openLink('https://discord.gg/rustplusbot')">ПЕРЕЙТИ К ПЕРЕХВАТУ</button>
         </div>
     </div>
 
-    <!-- Вкладка 3 -->
+    <!-- Вкладка 3: Настройки -->
     <div id="tab-settings" class="container tab-content">
         <div class="card">
             <h2>⚙️ Привязка сервера</h2>
             <p class="guide-text">Вставь полученные ключи сюда:</p>
-            <input type="text" id="ip" class="custom-input" placeholder="IP Сервера">
-            <input type="text" id="port" class="custom-input" placeholder="Порт">
-            <input type="text" id="steam_id" class="custom-input" placeholder="Steam ID">
-            <input type="text" id="token" class="custom-input" placeholder="Player Token">
+            <input type="text" id="ip" class="custom-input" placeholder="IP Сервера (напр. 192.168.1.1)">
+            <input type="text" id="port" class="custom-input" placeholder="Порт (напр. 28015)">
+            <input type="text" id="steam_id" class="custom-input" placeholder="Steam ID (7656...)">
+            <input type="text" id="token" class="custom-input" placeholder="Player Token (-123456789)">
             <button class="purple-btn" style="margin-top: 10px;" onclick="sendDataToBot()">СОХРАНИТЬ</button>
         </div>
     </div>

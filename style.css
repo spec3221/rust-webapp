@@ -11,14 +11,16 @@ body { background-color: var(--bg-dark); color: var(--text-light); font-family: 
 .status-card.safe { border-left-color: var(--safe-green); }
 .card h2 { margin-top: 0; font-size: 18px; color: var(--main-purple); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
 .card p { font-size: 18px; font-weight: bold; margin: 0 0 5px 0; }
-.guide-text { font-size: 14px !important; margin-bottom: 15px !important; color: #cbd5e1; }
+.guide-text { font-size: 14px !important; margin-bottom: 15px !important; color: #cbd5e1; line-height: 1.5; }
 .event-item { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; }
 .badge { padding: 6px 12px; border-radius: 6px; font-size: 12px; text-transform: uppercase; }
 .badge.active { background-color: var(--main-purple); color: white; box-shadow: 0 0 8px rgba(139, 92, 246, 0.6); }
+.badge.inactive { background-color: #27272a; color: #71717a; }
 
-.custom-input { width: 100%; background-color: #0f1015; border: 1px solid #333; color: var(--text-light); padding: 12px; margin-bottom: 12px; border-radius: 8px; font-family: monospace; font-size: 14px; box-sizing: border-box; outline: none; }
+.custom-input { width: 100%; background-color: #0f1015; border: 1px solid #333; color: var(--text-light); padding: 12px; margin-bottom: 12px; border-radius: 8px; font-family: monospace; font-size: 14px; box-sizing: border-box; outline: none; transition: 0.3s; }
 .custom-input:focus { border-color: var(--main-purple); box-shadow: 0 0 8px rgba(139, 92, 246, 0.3); }
-.purple-btn { width: 100%; background-color: var(--main-purple); color: white; border: none; padding: 15px; font-size: 16px; font-weight: 900; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); }
+.purple-btn { width: 100%; background-color: var(--main-purple); color: white; border: none; padding: 15px; font-size: 16px; font-weight: 900; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); transition: 0.2s; }
+.purple-btn:active { background-color: var(--dark-purple); }
 .bottom-nav { position: fixed; bottom: 0; width: 100%; max-width: 450px; background-color: var(--card-bg); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #333; }
-.nav-btn { background: none; border: none; color: #64748b; font-size: 14px; font-weight: bold; cursor: pointer; padding: 10px; }
+.nav-btn { background: none; border: none; color: #64748b; font-size: 14px; font-weight: bold; cursor: pointer; padding: 10px; transition: 0.2s; }
 .nav-btn.active-btn { color: var(--main-purple); text-shadow: 0 0 10px rgba(139, 92, 246, 0.5); }
