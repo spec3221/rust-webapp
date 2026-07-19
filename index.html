@@ -20,10 +20,10 @@
         </div>
         <div class="card">
             <h2>🗺️ Что на карте?</h2>
-            <div class="event-item"><span>🚢 Карго (Cargo)</span><span class="badge active">В пути</span></div>
+            <div class="event-item"><span>🚢 Карго (Cargo)</span><span class="badge inactive">Нету</span></div>
             <div class="event-item"><span>🛢️ Большая нефтевышка</span><span class="badge inactive">Пусто</span></div>
             <div class="event-item"><span>🛢️ Малая нефтевышка</span><span class="badge inactive">Пусто</span></div>
-            <div class="event-item"><span>🌊 Глубокое море (Deep Sea)</span><span class="badge inactive">Пусто</span></div>
+            <div class="event-item"><span>🌊 Глубокое море</span><span class="badge inactive">Пусто</span></div>
         </div>
     </div>
 
@@ -31,21 +31,28 @@
     <div id="tab-intercept" class="container tab-content">
         <div class="card">
             <h2>📡 Авто-Перехват</h2>
-            <p class="guide-text">Нажми кнопку ниже, чтобы открыть официальный Discord перехватчика. Авторизуйся через Steam, зайди в игру и нажми "Pair" на Умной сигнализации.</p>
-            <button class="purple-btn" onclick="Telegram.WebApp.openLink('https://discord.gg/rustplusbot')">ПЕРЕЙТИ К ПЕРЕХВАТУ</button>
+            <p class="guide-text">Установи расширение <b>Rustplus.py Link Companion</b> в браузере. Зайди в Rust, нажми "Pair with Server", и расширение само выдаст тебе нужные ключи.</p>
         </div>
     </div>
 
     <!-- Вкладка 3: Настройки -->
     <div id="tab-settings" class="container tab-content">
-        <div class="card">
+        <!-- Блок для ввода (если не подключен) -->
+        <div class="card" id="settings-form">
             <h2>⚙️ Привязка сервера</h2>
-            <p class="guide-text">Вставь полученные ключи сюда:</p>
-            <input type="text" id="ip" class="custom-input" placeholder="IP Сервера (напр. 192.168.1.1)">
-            <input type="text" id="port" class="custom-input" placeholder="Порт (напр. 28015)">
-            <input type="text" id="steam_id" class="custom-input" placeholder="Steam ID (7656...)">
-            <input type="text" id="token" class="custom-input" placeholder="Player Token (-123456789)">
+            <p class="guide-text">Вставь перехваченные ключи сюда:</p>
+            <input type="text" id="ip" class="custom-input" placeholder="IP Сервера">
+            <input type="text" id="port" class="custom-input" placeholder="Порт">
+            <input type="text" id="steam_id" class="custom-input" placeholder="Steam ID">
+            <input type="text" id="token" class="custom-input" placeholder="Player Token">
             <button class="purple-btn" style="margin-top: 10px;" onclick="sendDataToBot()">СОХРАНИТЬ</button>
+        </div>
+
+        <!-- Блок отключения (если уже подключен) -->
+        <div class="card" id="settings-connected" style="display: none;">
+            <h2>✅ Сервер подключен</h2>
+            <p class="guide-text">Бот готов к работе. Чтобы привязать другой сервер, нужно сначала отключить этот.</p>
+            <button class="purple-btn" style="background-color: #ef4444;" onclick="disconnectServer()">ОТКЛЮЧИТЬСЯ</button>
         </div>
     </div>
 
@@ -57,23 +64,38 @@
 
     <script>
         window.Telegram.WebApp.expand(); 
+
+        // Проверяем статус подключения по ссылке от Питона
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('connected') === '1') {
+            document.getElementById('settings-form').style.display = 'none';
+            document.getElementById('settings-connected').style.display = 'block';
+        }
+
         function switchTab(tabId, btnElement) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-btn'));
             btnElement.classList.add('active-btn');
         }
+
         function sendDataToBot() {
             const ip = document.getElementById('ip').value;
             const port = document.getElementById('port').value;
             const steamId = document.getElementById('steam_id').value;
             const token = document.getElementById('token').value;
+            
             if(!ip || !port || !steamId || !token) {
                 Telegram.WebApp.showAlert("Заполни все 4 поля!");
                 return;
             }
+            
             const dataObj = { ip: ip, port: port, steam_id: steamId, token: token };
             Telegram.WebApp.sendData(JSON.stringify(dataObj));
+        }
+
+        function disconnectServer() {
+            Telegram.WebApp.sendData(JSON.stringify({ action: "disconnect" }));
         }
     </script>
 </body>
