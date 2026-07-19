@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Bot</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>RUST ASSISTANT</h1>
+    </div>
+
+    <!-- Вкладка 1 -->
+    <div id="tab-main" class="container tab-content active">
+        <div class="card status-card safe">
+            <h2>🚨 Статус базы</h2>
+            <p>🟢 В БЕЗОПАСНОСТИ</p>
+        </div>
+        <div class="card">
+            <h2>🗺️ Что на карте?</h2>
+            <div class="event-item"><span>🚢 Корабль</span><span class="badge active">В пути</span></div>
+        </div>
+    </div>
+
+    <!-- Вкладка 2 -->
+    <div id="tab-intercept" class="container tab-content">
+        <div class="card">
+            <h2>📡 Авто-Перехват</h2>
+            <p class="guide-text">Нажми кнопку ниже, чтобы открыть сервис перехвата. Авторизуйся через Steam, зайди в Rust и нажми "Pair" на Умной сигнализации.</p>
+            <button class="purple-btn" onclick="Telegram.WebApp.openLink('https://discord.gg/rustplus')">ПЕРЕЙТИ К ПЕРЕХВАТУ</button>
+        </div>
+    </div>
+
+    <!-- Вкладка 3 -->
+    <div id="tab-settings" class="container tab-content">
+        <div class="card">
+            <h2>⚙️ Привязка сервера</h2>
+            <p class="guide-text">Вставь полученные ключи сюда:</p>
+            <input type="text" id="ip" class="custom-input" placeholder="IP Сервера">
+            <input type="text" id="port" class="custom-input" placeholder="Порт">
+            <input type="text" id="steam_id" class="custom-input" placeholder="Steam ID">
+            <input type="text" id="token" class="custom-input" placeholder="Player Token">
+            <button class="purple-btn" style="margin-top: 10px;" onclick="sendDataToBot()">СОХРАНИТЬ</button>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-btn active-btn" onclick="switchTab('tab-main', this)">🏠 База</button>
+        <button class="nav-btn" onclick="switchTab('tab-intercept', this)">📡 Перехват</button>
+        <button class="nav-btn" onclick="switchTab('tab-settings', this)">⚙️ Настройки</button>
+    </div>
+
+    <script>
+        window.Telegram.WebApp.expand(); 
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-btn'));
+            btnElement.classList.add('active-btn');
+        }
+        function sendDataToBot() {
+            const ip = document.getElementById('ip').value;
+            const port = document.getElementById('port').value;
+            const steamId = document.getElementById('steam_id').value;
+            const token = document.getElementById('token').value;
+            if(!ip || !port || !steamId || !token) {
+                Telegram.WebApp.showAlert("Заполни все 4 поля!");
+                return;
+            }
+            const dataObj = { ip: ip, port: port, steam_id: steamId, token: token };
+            Telegram.WebApp.sendData(JSON.stringify(dataObj));
+        }
+    </script>
+</body>
+</html>
